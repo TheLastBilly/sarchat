@@ -14,6 +14,7 @@ So far it only sends stuff, but that's because I literally just started writing 
 First clone this repo:
 ```
 git clone https://github.com/TheLastBilly/sarchat
+git submodule update
 ```
 
 Compile `sarchat`:
