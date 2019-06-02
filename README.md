@@ -12,20 +12,17 @@ So far it only sends stuff, but that's because I literally just started writing 
 * ncurses
 
 First clone this repo:
-
 ```
 git clone https://github.com/TheLastBilly/sarchat
 ```
 
 Compile `sarchat`:
-
 ```
 cmake
 make
 ```
 
 Run the program:
-
 ```
 bin/sarchat
 ```
