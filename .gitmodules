@@ -1,0 +1,3 @@
+[submodule "libdirecpp"]
+	path = libdirecpp
+	url = https://github.com/TheLastBilly/libdirecpp
