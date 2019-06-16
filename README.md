@@ -11,13 +11,13 @@ So far it only sends stuff, but that's because I literally just started writing 
 * g++
 * ncurses
 
-First clone this repo:
+### First clone this repo:
 ```
 git clone https://github.com/TheLastBilly/sarchat
 git submodule update
 ```
 
-Compile `sarchat`:
+### Compile and install `sarchat`:
 ```
 cmake
 make
