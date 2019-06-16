@@ -10,6 +10,7 @@ So far it only sends stuff, but that's because I literally just started writing 
 * cmake
 * g++
 * ncurses
+* direwolf
 
 #### First clone this repo:
 ```
@@ -17,13 +18,18 @@ git clone https://github.com/TheLastBilly/sarchat
 git submodule update
 ```
 
-#### Compile and install `sarchat`:
+#### Compile and install sarchat:
 ```
 cmake
 make
+sudo make install
+```
+#### Start direwolf:
+```
+direwolf
 ```
 
 #### Run the program:
 ```
-bin/sarchat
+sarchat
 ```
