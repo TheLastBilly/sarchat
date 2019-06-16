@@ -29,7 +29,7 @@ sudo make install
 direwolf
 ```
 
-#### Run the program:
+#### Run sarchat:
 ```
 sarchat
 ```
