@@ -11,7 +11,8 @@
 namespace Display{
     bool direcpp_good = false;
     DireCpp::DireCpp * direcpp = nullptr;
-    Display::Display( void ){
+    Display::Display( void )
+    :history_count(0){
         //Ncurses init
         initscr();
         noecho();
@@ -40,7 +41,9 @@ namespace Display{
         AX25::aprs_packet packet = {};
         while(1){
             if(direcpp->receive(&packet)){
-                wprintw(rx_win, "%s\n", packet.info);
+                std::cout << "Received!" << '\n';
+                std::string msg = direcpp->get_info_str(packet);
+                wprintw(rx_win, "%s\n", msg.c_str());
                 wrefresh(rx_win);
             }
             char in_c = getch();
@@ -55,18 +58,41 @@ namespace Display{
                     direcpp->send_string(input_buffer);
                 }
                 wrefresh(rx_win);
+                history.push_back( input_buffer );
+                history_index = history_count = history.size();
                 input_buffer.clear();
                 wclear(tx_win);
                 wrefresh(tx_win);
-                wrefresh(rx_win);
             }else if( in_c != ERR ){
-                if(in_c == 127 && input_buffer.length() > 0){
-                    input_buffer = input_buffer.substr(0, input_buffer.length() -1);
+                int cursor_x, cursor_y;
+                if(in_c == BACKSPACE){
+                    if(input_buffer.length() > 0)
+                        input_buffer = input_buffer.substr(0, input_buffer.length() -1);
+                }else if(in_c == LEFT_ARROW_K){
+                    getyx(tx_win, cursor_y, cursor_x);
+                    if(cursor_x > 0)
+                        wmove(tx_win, cursor_y, cursor_x - 1);
+                    wrefresh(tx_win);
+                }else if(in_c == RIGHT_ARROW_K){
+                    getyx(tx_win, cursor_y, cursor_x);
+                    if(cursor_x < x_max-1)
+                        wmove(tx_win, cursor_y, cursor_x + 1);
+                    wrefresh(tx_win);
+                }else if(in_c == UP_ARROW_K){
+                    if(history_index > 0)
+                        history_index--;
+                    input_buffer = history.at(history_index);
+                }else if( in_c == DOWN_ARROW_K ){
+                    if(history_index < history_count -1){
+                        history_index++;
+                        input_buffer = history.at(history_index);
+                    }else if(history_index == history_count - 1 || history_index == history_count)
+                        input_buffer.clear();
                 }else{
                     input_buffer.append( 1, in_c );
                 }
                 wclear(tx_win);
-                wprintw(tx_win, "%s", input_buffer.c_str());
+                wprintw(tx_win, "%s %d", input_buffer.c_str(), in_c);
                 wrefresh(tx_win);
             }
         }

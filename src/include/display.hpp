@@ -19,6 +19,11 @@
 #include "../../libdirecpp/src/include/direcpp.hpp"
 
 #define INPUT_CHAR '$'
+#define BACKSPACE 127
+#define DOWN_ARROW_K 66
+#define RIGHT_ARROW_K 67
+#define UP_ARROW_K 65
+#define LEFT_ARROW_K 68
 
 namespace Display{
     class Display{
@@ -31,7 +36,10 @@ namespace Display{
         void init();
     private:
         std::vector< std::string > rx_msg;
+        std::vector< std::string > history;
         std::string input_buffer;
+        int history_count;
+        int history_index;
     };
 }
 #endif
