@@ -1,6 +1,6 @@
 # SARCHAT
 
-A simple chat app built with the [libdirecpp](https://github.com/TheLastBilly/libdirecpp).
+A simple chat app built with the [libdirecpp](https://github.com/TheLastBilly/libdirecpp) library.
 
 ## Installation
 
